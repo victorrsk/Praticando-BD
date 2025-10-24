@@ -26,3 +26,20 @@ def validar_email(email):
     return False
 
 def validar_cpf(cpf):
+    cpf_pattern = r'^[0-9]{3}.{1}[0-9]{3}.{1}[0-9]{3}-{1}[0-9]{2}'
+    if re.fullmatch(cpf_pattern, cpf):
+        return True
+    
+    print('CPF inválido')
+    return False
+
+def validar_dados(nome, email, cpf):
+    nome_valido = validar_nome(nome)
+    email_valido = validar_email(email)
+    cpf_valido = validar_cpf(cpf)
+    
+    if nome_valido and email_valido and cpf_valido:
+        return True
+    
+    print('Dados inválidos')
+    return False

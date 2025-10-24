@@ -33,3 +33,19 @@ def validar_cpf(cpf):
     print('CPF inválido')
     return False
 
+def validar_dados(nome, email, cpf):
+    nome_valido = validar_nome(nome)
+    email_valido = validar_email(email)
+    cpf_valido = validar_cpf(cpf)
+    
+    if nome_valido and email_valido and cpf_valido:
+        return True
+    
+    return False
+
+
+nome = 'victor'
+email = 'jv191207@gmail.com'
+cpf = '062.869.385-08'
+
+print(validar_dados(nome, email, cpf))
