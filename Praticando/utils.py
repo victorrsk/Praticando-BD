@@ -1,7 +1,7 @@
 import re
 
 def validar_nome(nome):
-    nome_pattern = r'[a-zA-Z]{3,}\s*'
+    nome_pattern = r"^[A-Za-zÀ-ÖØ-öø-ÿ]+(?: [A-Za-zÀ-ÖØ-öø-ÿ]+)*$"
     if len(nome) > 150:
         print('Nome muito extenso')
         return False
@@ -41,5 +41,4 @@ def validar_dados(nome, email, cpf):
     if nome_valido and email_valido and cpf_valido:
         return True
     
-    print('Dados inválidos')
     return False
