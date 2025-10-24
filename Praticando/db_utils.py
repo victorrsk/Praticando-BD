@@ -8,14 +8,11 @@ ROOT_PATH = Path(__file__).parent
 conn = sqlite3.connect(ROOT_PATH / 'praticando.db')
 # cria o cursor
 cursor = conn.cursor()
+# para listar os registros melhor
+cursor.row_factory = sqlite3.Row
 
 
 def inserir_registro(dados):
-    """
-    Insere os dados no BD
-    Args:
-        dados (tupla): dados que serão inseridos no BD
-    """
     try:
         cursor.execute(
             'INSERT INTO usuarios (nome, email, cpf) VALUES (?, ?, ?)', dados)
@@ -44,7 +41,8 @@ def atualizar_registro(id, atributo):
 
         elif atributo.upper() == 'EMAIL':
             novo = input('Novo email: ')
-            cursor.execute('UPDATE usuarios SET email=? WHERE id=?', (novo, id))
+            cursor.execute(
+                'UPDATE usuarios SET email=? WHERE id=?', (novo, id))
 
         else:
             print('Atributo inexistente ou não pode ser alterado')
@@ -57,4 +55,21 @@ def atualizar_registro(id, atributo):
         conn.rollback()
 
 
+def excluir_registro(id):
+    try:
+        cursor.execute('DELETE FROM usuarios WHERE id=?', (id,))
+        conn.commit()
+        print('Registro excluido com sucesso!')
+    except Exception as exc:
+        print(f'Ocorreu algum erro: {exc}')
+        conn.rollback()
+
+def listar_registros():
+    try:
+        cursor.execute('SELECT * FROM usuarios')
+        registros = cursor.fetchall()
+        for usuario in registros:
+            print(f'NOME: {usuario['nome']}\tEMAIL: {usuario['email']}')
+    except Exception as exc:
+        print(f'Ocorreu algum erro: {exc}')
 

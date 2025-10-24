@@ -13,7 +13,7 @@ def validar_nome(nome):
     return False
 
 def validar_email(email):
-    email_pattern = r'[a-zA-Z]{2,}[0-9]{3,}((@gmail.com){1}$)'
+    email_pattern = r'[a-zA-Z0-9]{5,}((@gmail.com){1}$)'
     
     if len(email) > 150:
         print('email muito extenso')
@@ -42,3 +42,4 @@ def validar_dados(nome, email, cpf):
         return True
     
     return False
+
